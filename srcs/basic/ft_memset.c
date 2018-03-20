@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2017/10/26 19:19:10 by msemenov          #+#    #+#             */
+/*   Updated: 2017/11/15 12:41:41 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+void		*ft_memset(void *memptr, int val, size_t num)
 {
-	char	*plus;
-	char	*ptr;
+	char	*s1;
+	size_t	n;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	n = 0;
+	s1 = memptr;
+	while (n < num)
+	{
+		s1[n] = val;
+		n++;
+	}
+	return (s1);
 }

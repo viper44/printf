@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_test.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2018/02/12 15:31:05 by msemenov          #+#    #+#             */
+/*   Updated: 2018/02/12 15:31:06 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+char	*ft_hash_hex(char *output)
 {
-	char	*plus;
-	char	*ptr;
+	char *hash;
+	char *ret;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	if (output[0] != '0' || ((int)ft_strlen(output) > 2))
+	{
+		hash = ft_strnew(2);
+		hash[0] = '0';
+		hash[1] = 'x';
+		ret = ft_strjoin(hash, output);
+		free(output);
+		free(hash);
+		return (ret);
+	}
+	else
+	{
+		return (output);
+	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   itoa_base.c                                        :+:      :+:    :+:   */
+/*   ft_test.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:40:53 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:40:59 by msemenov         ###   ########.fr       */
+/*   Created: 2018/02/12 15:51:52 by msemenov          #+#    #+#             */
+/*   Updated: 2018/02/12 15:51:54 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char		*ft_make_str(int minus, char *ret, int base, uint64_t nb)
 	{
 		tmp = nb % base;
 		if (tmp >= 10)
-			ret[size] = ('A' + tmp % 10);
+			ret[size] = ('a' + tmp % 10);
 		else
 			ret[size] = tmp + '0';
 		nb = nb / base;
@@ -47,31 +47,27 @@ static char		*ft_make_str(int minus, char *ret, int base, uint64_t nb)
 	return (ret);
 }
 
-char			*itoa_base(long long int value, int base)
+char			*unsigned_itoa_base_sx(unsigned long long int value, int base)
 {
 	unsigned long long int	nb;
 	int						minus;
 	int						size;
 	char					*ret;
 
+	nb = 0;
 	minus = 0;
 	size = 1;
+	nb = value;
 	if (value == 0)
 		size = 2;
-	if (value < 0 && base == 10)
+	while (nb != 0)
 	{
-		nb = -value;
-		minus++;
-	}
-	else
-		nb = value;
-	while (value != 0)
-	{
-		value = value / base;
+		nb = nb / base;
 		size++;
 	}
-	ret = ft_strnew(size + minus);
+	ret = (char*)malloc(sizeof(char) * (size + minus));
 	size -= 1;
+	ret[size + minus] = '\0';
 	ret = ft_b(ret, size, minus);
-	return (ft_make_str(minus, ret, base, nb));
+	return (ft_make_str(minus, ret, base, value));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aligning_number_sleva_octet.c                   :+:      :+:    :+:   */
+/*   ft_aligning_number_sleva_hex.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/29 11:27:55 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/29 11:27:57 by msemenov         ###   ########.fr       */
+/*   Created: 2018/02/02 16:00:11 by msemenov          #+#    #+#             */
+/*   Updated: 2018/02/02 16:00:12 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static char		*ft_precision(char *output, t_data *data)
 	tmp = ft_strnew(size_precision);
 	while (size_output >= 0)
 		tmp[size_precision--] = output[size_output--];
-	if (output[0] == '-')
-		tmp[size_precision++] = '0';
 	while (size_precision >= 0)
 		tmp[size_precision--] = '0';
 	free(output);
@@ -48,15 +46,14 @@ static char		*ft_width_left(char *tmp, t_data *data)
 	return (tmp_ret);
 }
 
-void			ft_aligning_number_sleva_octet(char *output, t_data *data)
+void			ft_aligning_number_sleva_hex(char *output, t_data *data)
 {
-	if ((output[0] == '0' && data->dot == 1 && data->precision == 0) ||
-		(data->hash == 1 && ft_strlen(output) == 1 && output[0] == '0'))
+	if (output[0] == '0' && data->dot == 1 && data->precision == 0)
 		output[0] = '\0';
 	if (data->precision >= (int)ft_strlen(output))
 		output = ft_precision(output, data);
-	if (data->hash == 1)
-		output = ft_hash(output);
+	if (data->hash == 1 && output[0] != '\0')
+		output = ft_hash_hex(output);
 	if (data->width > (int)ft_strlen(output))
 		output = ft_width_left(output, data);
 	ft_output(output, data);

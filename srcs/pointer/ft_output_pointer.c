@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_output_pointer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2018/02/08 11:17:48 by msemenov          #+#    #+#             */
+/*   Updated: 2018/02/08 11:17:49 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+void	ft_output_pointer(t_data *data, va_list ptr)
 {
-	char	*plus;
-	char	*ptr;
+	unsigned long int	d;
+	char				*point_string;
+	int					size;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	d = va_arg(ptr, unsigned long int);
+	point_string = unsigned_itoa_base_sx(d, 16);
+	size = ft_strlen(point_string);
+	data->hash = 1;
+	if (data->minus == 1)
+		ft_aligning_pointer_sleva(point_string, data);
+	else
+		ft_aligning_pointer_sprava(point_string, data);
 }

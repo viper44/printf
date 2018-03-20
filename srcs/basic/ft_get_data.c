@@ -17,7 +17,7 @@ static const char	*ft_check_hh(const char *f, t_data *data)
 	int h;
 
 	h = 0;
-	while(*f == 'h')
+	while (*f == 'h')
 	{
 		h++;
 		f++;
@@ -30,25 +30,23 @@ static const char	*ft_check_hh(const char *f, t_data *data)
 	return (f);
 }
 
-static const char *ft_get_precision(const char *f, t_data *data)
+static const char	*ft_get_precision(const char *f, t_data *data)
 {
 	data->dot = 1;
+	data->precision = 0;
 	f++;
 	if (ft_isdigit(*f))
 	{
 		data->precision = ft_atoi(f);
 		while (ft_isdigit(*f))
-			f++;	
+			f++;
 	}
 	f--;
 	return (f);
 }
 
-static void 		ft_get_modes(const char *f, t_data *data)
+static void			ft_get_modes(const char *f, t_data *data)
 {
-	int			i;
-
-	i = 0;
 	if (*f == '#')
 		data->hash = 1;
 	if (*f == '0')
@@ -67,7 +65,7 @@ static void 		ft_get_modes(const char *f, t_data *data)
 		data->percent += 1;
 }
 
-static int 	ft_valid(const char *f)
+static int			ft_valid(const char *f)
 {
 	if (*f != '#' && *f != '0' && *f != '-' && *f != '+'
 		&& *f != 'j' && *f != 'z' && *f != 'h' && *f != 'l'
@@ -76,21 +74,7 @@ static int 	ft_valid(const char *f)
 	return (1);
 }
 
-// int	ft_percent_check(const char *f, t_data *data)
-// {
-// 	if (*f == '%')
-// 	{
-// 		f++;
-// 		if (*f == '%')
-// 		{
-// 			data->percent = 1;
-// 			return(1);
-// 		}
-// 	}
-// 	return (0);
-// }
-
-const char	*ft_get_data(const char *f,t_data *data)
+const char			*ft_get_data(const char *f, t_data *data)
 {
 	while (*f != '\0' && *f != 'c' && *f != 'd' && *f != 's' && *f != 'i'
 		&& *f != 'S' && *f != 'p' && *f != 'D' && *f != 'o' && *f != 'O'
@@ -98,8 +82,6 @@ const char	*ft_get_data(const char *f,t_data *data)
 	{
 		if (!ft_valid(f))
 			return (f);
-		// if (!ft_percent_check(f, data))
-		// 	return (f);
 		ft_get_modes(f, data);
 		if (*f == 'h')
 			f = ft_check_hh(f, data);

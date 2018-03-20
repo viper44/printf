@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_output_unb_int.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2018/02/02 18:54:36 by msemenov          #+#    #+#             */
+/*   Updated: 2018/02/02 18:54:37 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+void	ft_output_unb_int(t_data *data, va_list ptr)
 {
-	char	*plus;
-	char	*ptr;
+	char				*point_string;
+	unsigned long long	d;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	d = va_arg(ptr, unsigned long long int);
+	point_string = unsigned_itoa_base(d, 10);
+	if (data->minus == 1)
+		ft_aligning_number_sleva_octet(point_string, data);
+	else
+		ft_aligning_number_sprava_octet(point_string, data);
 }

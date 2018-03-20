@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2017/10/30 13:38:20 by msemenov          #+#    #+#             */
+/*   Updated: 2017/11/01 13:12:50 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+char		*ft_strncpy(char *dst, const char *src, size_t length)
 {
-	char	*plus;
-	char	*ptr;
+	size_t	i;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	i = 0;
+	while (src[i] != '\0' && length > 0)
+	{
+		dst[i] = src[i];
+		i++;
+		length--;
+	}
+	while (length--)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
 }

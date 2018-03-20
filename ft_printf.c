@@ -12,7 +12,7 @@
 
 #include "./printf.h"
 
-static t_data ft_go_zero()
+static t_data		ft_go_zero(void)
 {
 	t_data data;
 
@@ -36,46 +36,62 @@ static t_data ft_go_zero()
 	return (data);
 }
 
+static int			ft_c(const char *f, t_data *data)
+{
+	char c;
 
-static int	ft_check(const char *format, va_list ptr)
+	c = *f;
+	if (*f == 'd' || *f == 'i' || *f == 'D' || *f == 'o' || *f == 'x' ||
+		*f == 'X' || *f == 'u' || *f == 'c' || *f == '%' || *f == 's' ||
+		*f == 'U' || *f == 'C' || *f == 'S' || *f == 'p' || *f == 'O')
+		return (1);
+	else
+	{
+		if (data->minus == 1)
+			ft_aligning_char_sleva(c, data);
+		else
+			ft_aligning_char_sprava(c, data);
+		return (0);
+	}
+}
+
+static int			ft_check(const char *format, va_list ptr)
 {
 	t_data	data;
 	int		ret;
 
 	ret = 0;
-	data = ft_go_zero();
 	while (*format != '\0')
 	{
+		data = ft_go_zero();
 		while (*format != '%' && *format != '\0')
 		{
-			write (1, format, 1);
+			write(1, format, 1);
 			ret += 1;
 			format++;
 		}
-		if (*format == '\0')
-			break;
 		if (*format == '%')
 		{
 			format++;
 			format = ft_get_data(format, &data);
 		}
-		ft_check_conv(format, &data, ptr);
+		if (*format == '\0')
+			break ;
+		(!(ft_c(format, &data))) ? (format += 1) :
+		(format = ft_check_conv(format, &data, ptr));
 		ret += data.ret;
-		data = ft_go_zero();
-		if (*format != '\n' )
-			format++;
 	}
-	return(ret);
+	return (ret);
 }
 
-int	ft_printf(const char *format, ...) 
+int					ft_printf(const char *format, ...)
 {
-	int ret;
+	int			ret;
+	va_list		(ptr);
 
 	ret = 0;
-	va_list (ptr);
 	va_start(ptr, format);
 	ret = ft_check(format, ptr);
 	va_end(ptr);
-	return(ret);
+	return (ret);
 }

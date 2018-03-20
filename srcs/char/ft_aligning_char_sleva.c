@@ -1,27 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_aligning_char_sleva.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2018/02/08 14:20:59 by msemenov          #+#    #+#             */
+/*   Updated: 2018/02/08 14:21:00 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+void	ft_aligning_char_sleva(char c, t_data *data)
 {
-	char	*plus;
-	char	*ptr;
+	char	*width;
+	int		i;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	i = 0;
+	width = NULL;
+	if (data->width > 0)
+	{
+		width = ft_strnew(data->width);
+		width[data->width - 1] = '\0';
+		while (i < (data->width - 1))
+		{
+			width[i] = ' ';
+			i++;
+		}
+		write(1, &c, 1);
+		write(1, width, ft_strlen(width));
+		data->ret = (int)ft_strlen(width) + 1;
+		free(width);
+		return ;
+	}
+	write(1, &c, 1);
+	data->ret = 1;
+	return ;
 }

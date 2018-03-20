@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_plus.c                                      :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msemenov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 15:54:16 by msemenov          #+#    #+#             */
-/*   Updated: 2018/01/23 15:54:18 by msemenov         ###   ########.fr       */
+/*   Created: 2017/11/07 13:41:49 by msemenov          #+#    #+#             */
+/*   Updated: 2017/11/15 12:32:18 by msemenov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../printf.h"
 
-char	*ft_add_plus(char *tmp)
+char				*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	char	*plus;
-	char	*ptr;
+	char			*s_new;
+	size_t			i;
 
-	ptr = tmp;
-	plus = ft_strnew(1);
-	plus[0] = '+';
-	tmp = ft_strjoin(plus, tmp);
-	free(ptr);
-	free(plus);
-	return (tmp);
+	i = 0;
+	s_new = NULL;
+	if (s != NULL)
+	{
+		s_new = (char*)malloc(sizeof(char) * len + 1);
+		if (s_new == NULL)
+			return (NULL);
+		while (i < len)
+		{
+			s_new[i] = s[start];
+			i++;
+			start++;
+		}
+		s_new[i] = '\0';
+	}
+	return (s_new);
 }
